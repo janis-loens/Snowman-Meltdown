@@ -76,7 +76,14 @@ def get_guess(guessed_letters: set) -> str:
 # Main game
 # ―――――――――――――――――――――――――――――
 
-def play_game(words):
+def play_game(words: list) -> None:
+    """
+
+    Args:
+        words(list): list of words
+    Returns:
+        None
+    """
     secret_word = get_random_word(words)
     guessed_letters = set()
     mistakes = 0
