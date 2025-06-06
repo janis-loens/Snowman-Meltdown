@@ -4,8 +4,6 @@ from ascii_art import STAGES
 # ―――――――――――――――――――――――――――――
 # Globals
 # ―――――――――――――――――――――――――――――
-
-WORDS = ["python", "git", "github", "snowman", "meltdown"]
 MAX_MISTAKES = len(STAGES) - 1
 
 
@@ -13,13 +11,13 @@ MAX_MISTAKES = len(STAGES) - 1
 # Helpers
 # ―――――――――――――――――――――――――――――
 
-def get_random_word() -> str:
+def get_random_word(words) -> str:
     """
     Gets a random word from WORDS.
     Returns:
         str: random word
     """
-    return random.choice(WORDS)
+    return random.choice(words)
 
 
 def display_game_state(mistakes: int, secret_word: str, guessed_letters: set) -> bool:
@@ -78,8 +76,8 @@ def get_guess(guessed_letters: set) -> str:
 # Main game
 # ―――――――――――――――――――――――――――――
 
-def play_game():
-    secret_word = get_random_word()
+def play_game(words):
+    secret_word = get_random_word(words)
     guessed_letters = set()
     mistakes = 0
 
@@ -109,7 +107,3 @@ def play_game():
             print(f"✓ '{guess}' is in the word!\n")
 
     print("\nThanks for playing!\n")
-
-
-if __name__ == "__main__":
-    play_game()
