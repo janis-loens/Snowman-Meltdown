@@ -32,28 +32,31 @@ STAGES = [
 
 # List of secret words
 WORDS = ["python", "git", "github", "snowman", "meltdown"]
-
+MAX_MISTAKES = len(STAGES) - 1
 
 def get_random_word():
-    """Selects a random word from the list."""
-    return WORDS[random.randint(0, len(WORDS) - 1)]
+    return random.choice(WORDS)
+
 
 
 def display_game_state(mistakes, secret_word, guessed_letters):
     # Display the snowman stage for the current number of mistakes.
-    if mistakes == 3:
-        print("Game Over! The word was:", secret_word)
+    win = False
     print(STAGES[mistakes])
     # Build a display version of the secret word.
-    if mistakes < 3 :
-        display_word = ""
-        for letter in secret_word:
-            if letter in guessed_letters:
-                display_word += letter + " "
-            else:
-                display_word += "_ "
+    if mistakes < MAX_MISTAKES :
+        display_word = " ".join(
+            letter if letter in guessed_letters else "_"
+            for letter in secret_word
+        )
+
         print("Word: ", display_word)
+        if "_" not in display_word:
+            print("You won!")
+            win = True
         print("\n")
+    return win
+
 
 
 def play_game():
@@ -62,17 +65,25 @@ def play_game():
     mistakes = 0
 
     print("Welcome to Snowman Meltdown!")
-    while mistakes < 4:
-        display_game_state(mistakes, secret_word, guessed_letters)
-
+    while mistakes <= MAX_MISTAKES:
+        win = display_game_state(mistakes, secret_word, guessed_letters)
+        if win:
+            break
         # Prompt user for one guess (logic to be enhanced later)
-        guess = input("Guess a letter: ").lower()
-        if guess in guessed_letters:
-            print("You've already guessed that letter!")
-        else:
-            guessed_letters.append(guess)
-        if guess not in secret_word:
-            mistakes += 1
+        if mistakes < MAX_MISTAKES:
+            guess = input("Guess a letter: ").lower()
+            if guess in guessed_letters:
+                print("You've already guessed that letter!")
+            else:
+                guessed_letters.append(guess)
+            if guess not in secret_word:
+                mistakes += 1
+        if mistakes == MAX_MISTAKES:
+            print(STAGES[mistakes])
+            print("Game Over! The word was:", secret_word)
+            break
+
+
 
 
 
