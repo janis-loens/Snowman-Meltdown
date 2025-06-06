@@ -44,8 +44,6 @@ def display_game_state(mistakes: int, secret_word: str, guessed_letters: set) ->
 
         # If all letters are guessed, show the fully‐revealed word and win
         if all(letter in guessed_letters for letter in secret_word):
-            full_word = " ".join(secret_word)
-            print("Word: ", full_word)
             print("🎉 You won! The word was:", secret_word)
             return True
 
