@@ -25,7 +25,7 @@ def display_game_state(mistakes, secret_word, guessed_letters):
 
         print("Word: ", display_word)
         if "_" not in display_word:
-            print("You won!")
+            print("You won! The snowman is saved!")
             win = True
         print("\n")
     return win
